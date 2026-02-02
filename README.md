@@ -105,9 +105,9 @@ This is a NodeJS REST API that serves data regarding songs, artists, and genres 
 
 | Method | Endpoint | Description | Completed |
 |--------|----------|-------------|-----------|
-| GET | `/api/artists` | All artists sorted by name | ❌ |
-| GET | `/api/artists/:id` | Single artist by ID | ❌ |
-| GET | `/api/artists/averages/:id` | Average song metrics for artist | ❌ |
+| GET | `/api/artists` | All artists sorted by name | ✅ |
+| GET | `/api/artists/:id` | Single artist by ID | ✅ |
+| GET | `/api/artists/averages/:id` | Average song metrics for artist | ✅ |
 
 ### Genres
 

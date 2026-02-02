@@ -47,4 +47,30 @@ router.get("/:id", (req, res) => {
   }
 });
 
+router.get("/averages/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const db = getDb();
+    const averages = db.query(
+      `SELECT 
+        AVG(s.bpm) as avg_bpm,
+        AVG(s.energy) as avg_energy,
+        AVG(s.danceability) as avg_danceability,
+        AVG(s.loudness) as avg_loudness,
+        AVG(s.liveness) as avg_liveness,
+        AVG(s.valence) as avg_valence,
+        AVG(s.duration) as avg_duration,
+        AVG(s.acousticness) as avg_acousticness,
+        AVG(s.speechiness) as avg_speechiness,
+        AVG(s.popularity) as avg_popularity
+      FROM songs s
+      WHERE s.artist_id = ?`
+    ).get(id);
+    res.json(averages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
