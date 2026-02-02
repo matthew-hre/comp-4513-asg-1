@@ -28,7 +28,14 @@ router.get("/", (_req, res) => {
       LEFT JOIN genres g ON s.genre_id = g.genre_id
       ORDER BY s.title ASC
     `).all();
-    res.json(songs);
+
+    // sqlite's json_object returns strings, so we need to parse them
+    const parsed = songs.map(song => ({
+      ...song,
+      artist: JSON.parse(song.artist),
+      genre: JSON.parse(song.genre)
+    }));
+    res.json(parsed);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -75,7 +82,14 @@ router.get("/sort/:order", (req, res) => {
       LEFT JOIN genres g ON s.genre_id = g.genre_id
       ORDER BY ${orderByMap[order]} ASC
     `).all();
-    res.json(songs);
+
+    // sqlite's json_object returns strings, so we need to parse them
+    const parsed = songs.map(song => ({
+      ...song,
+      artist: JSON.parse(song.artist),
+      genre: JSON.parse(song.genre)
+    }));
+    res.json(parsed);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
