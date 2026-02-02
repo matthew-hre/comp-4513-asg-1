@@ -3,7 +3,7 @@
   alejandra,
   bash,
   nodejs,
-  pnpm,
+  bun,
 }:
 mkShell rec {
   name = "comp-4513-asg-1";
@@ -13,7 +13,7 @@ mkShell rec {
     nodejs
 
     # Plays nicer with my system
-    pnpm
+    bun
 
     # Required for CI for format checking.
     alejandra
