@@ -122,11 +122,11 @@ This is a NodeJS REST API that serves data regarding songs, artists, and genres 
 | GET | `/api/songs` | All songs sorted by title | ✅ |
 | GET | `/api/songs/sort/:order` | Songs sorted by field (id, title, artist, genre, year, duration) | ✅ |
 | GET | `/api/songs/:id` | Single song by ID | ✅ |
-| GET | `/api/songs/search/begin/:substring` | Songs where title begins with substring | ❌ |
-| GET | `/api/songs/search/any/:substring` | Songs where title contains substring | ❌ |
-| GET | `/api/songs/search/year/:year` | Songs from specified year | ❌ |
-| GET | `/api/songs/artist/:id` | All songs by artist | ❌ |
-| GET | `/api/songs/genre/:id` | All songs in genre | ❌ |
+| GET | `/api/songs/search/begin/:substring` | Songs where title begins with substring | ✅ |
+| GET | `/api/songs/search/any/:substring` | Songs where title contains substring | ✅ |
+| GET | `/api/songs/search/year/:year` | Songs from specified year | ✅ |
+| GET | `/api/songs/artist/:id` | All songs by artist | ✅ |
+| GET | `/api/songs/genre/:id` | All songs in genre | ✅ |
 
 ### Playlists
 
