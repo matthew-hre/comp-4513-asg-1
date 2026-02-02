@@ -1,5 +1,1 @@
-function main() {
-    console.log("Hello, World!");
-}
-
-main();
+import "./src/server.js";
