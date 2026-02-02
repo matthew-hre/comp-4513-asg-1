@@ -139,4 +139,90 @@ router.get("/:id", (req, res) => {
   }
 });
 
+router.get("/artist/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const db = getDb();
+
+    const songs = db.query(`
+      SELECT 
+        s.song_id,
+        s.title,
+        s.year,
+        s.bpm,
+        s.energy,
+        s.danceability,
+        s.loudness,
+        s.liveness,
+        s.valence,
+        s.duration,
+        s.acousticness,
+        s.speechiness,
+        s.popularity,
+        json_object('artist_id', a.artist_id, 'artist_name', a.artist_name) as artist,
+        json_object('genre_id', g.genre_id, 'genre_name', g.genre_name) as genre
+      FROM songs s
+      LEFT JOIN artists a ON s.artist_id = a.artist_id
+      LEFT JOIN genres g ON s.genre_id = g.genre_id
+      WHERE s.artist_id = ?
+      ORDER BY s.title ASC
+    `).all(id);
+
+    // sqlite's json_object returns strings, so we need to parse them
+    const parsed = songs.map(song => ({
+      ...song,
+      artist: JSON.parse(song.artist),
+      genre: JSON.parse(song.genre)
+    }));
+
+    res.json(parsed);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get("/genre/:id", (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const db = getDb();
+
+    const songs = db.query(`
+      SELECT 
+        s.song_id,
+        s.title,
+        s.year,
+        s.bpm,
+        s.energy,
+        s.danceability,
+        s.loudness,
+        s.liveness,
+        s.valence,
+        s.duration,
+        s.acousticness,
+        s.speechiness,
+        s.popularity,
+        json_object('artist_id', a.artist_id, 'artist_name', a.artist_name) as artist,
+        json_object('genre_id', g.genre_id, 'genre_name', g.genre_name) as genre
+      FROM songs s
+      LEFT JOIN artists a ON s.artist_id = a.artist_id
+      LEFT JOIN genres g ON s.genre_id = g.genre_id
+      WHERE s.genre_id = ?
+      ORDER BY s.title ASC
+    `).all(id);
+
+    // sqlite's json_object returns strings, so we need to parse them
+    const parsed = songs.map(song => ({
+      ...song,
+      artist: JSON.parse(song.artist),
+      genre: JSON.parse(song.genre)
+    }));
+
+    res.json(parsed);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
