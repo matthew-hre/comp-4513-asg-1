@@ -33,8 +33,115 @@ This is a NodeJS REST API that serves data regarding songs, artists, and genres 
 3.
     That's it so far I'm afraid.
 
-## TODO
+## Database Schema
 
-- [ ] Setup database + dependencies
-- [ ] Mess around with the data
-- [ ] Add... so many endpoints
+### artists
+
+| Column | Type |
+|--------|------|
+| artist_id | int |
+| artist_name | string |
+| artist_type_id | int |
+| artist_image_url | url |
+| spotify_url | url |
+| spotify_desc | url or null |
+
+### genres
+
+| Column | Type |
+|--------|------|
+| genre_id | int |
+| genre_name | string |
+
+### types
+
+| Column | Type |
+|--------|------|
+| type_id | int |
+| type_name | string |
+
+**Type mapping:** 1 = band, 2 = duo, 3 = solo, 4 = trio
+
+### songs
+
+| Column | Type |
+|--------|------|
+| song_id | int |
+| title | string |
+| artist_id | int |
+| genre_id | int |
+| year | int |
+| bpm | int |
+| energy | int |
+| danceability | int |
+| loudness | int |
+| liveness | int |
+| valence | int |
+| duration | int |
+| acousticness | int |
+| speechiness | int |
+| popularity | int |
+
+### playlists
+
+| Column | Type |
+|--------|------|
+| id | int |
+| playlist_id | int |
+| song_id | int |
+
+### sqlite_sequence
+
+| Column | Type |
+|--------|------|
+| name | string |
+| seq | int |
+
+**Current sequences:** playlists at 30
+
+## API Routes
+
+### Artists
+
+| Method | Endpoint | Description | Completed |
+|--------|----------|-------------|-----------|
+| GET | `/api/artists` | All artists sorted by name | ❌ |
+| GET | `/api/artists/:id` | Single artist by ID | ❌ |
+| GET | `/api/artists/averages/:id` | Average song metrics for artist | ❌ |
+
+### Genres
+
+| Method | Endpoint | Description | Completed |
+|--------|----------|-------------|-----------|
+| GET | `/api/genres` | All genres | ✅ |
+
+### Songs
+
+| Method | Endpoint | Description | Completed |
+|--------|----------|-------------|-----------|
+| GET | `/api/songs` | All songs sorted by title | ✅ |
+| GET | `/api/songs/sort/:order` | Songs sorted by field (id, title, artist, genre, year, duration) | ✅ |
+| GET | `/api/songs/:id` | Single song by ID | ❌ |
+| GET | `/api/songs/search/begin/:substring` | Songs where title begins with substring | ❌ |
+| GET | `/api/songs/search/any/:substring` | Songs where title contains substring | ❌ |
+| GET | `/api/songs/search/year/:year` | Songs from specified year | ❌ |
+| GET | `/api/songs/artist/:id` | All songs by artist | ❌ |
+| GET | `/api/songs/genre/:id` | All songs in genre | ❌ |
+
+### Playlists
+
+| Method | Endpoint | Description | Completed |
+|--------|----------|-------------|-----------|
+| GET | `/api/playlists` | All playlists | ❌ |
+| GET | `/api/playlists/:id` | Songs in playlist | ❌ |
+
+### Mood
+
+| Method | Endpoint | Description | Completed |
+|--------|----------|-------------|-----------|
+| GET | `/api/mood/dancing/:count` | Top N songs by danceability | ❌ |
+| GET | `/api/mood/happy/:count` | Top N songs by valence | ❌ |
+| GET | `/api/mood/coffee/:count` | Top N songs by liveness/acousticness | ❌ |
+| GET | `/api/mood/studying/:count` | Top N songs by energy×speechiness | ❌ |
+
+> **Note:** Mood routes default to 20 if count is missing, < 1, or > 20
