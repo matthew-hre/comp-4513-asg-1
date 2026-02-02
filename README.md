@@ -22,12 +22,12 @@ This is a NodeJS REST API that serves data regarding songs, artists, and genres 
     > A couple notes here:
     >
     > 1. I run NixOS as my main OS, so I use Nix for development environments. If you don't use Nix, you can skip the `nix develop` step.
-    > 2. I use `pnpm` over `npm`, as I find it plays nicer on my system. Theoretically this should just work with `npm install` as well.
+    > 2. I use `bun` over `npm`, as I find it's faster and plays nicer on my system. Theoretically this should just work with `npm install` as well.
     > 3. There is an `.envrc` file for `direnv` to automatically load the development environment. If you don't know what that is, you can ignore it.
 
     ```bash
     nix develop
-    pnpm install
+    bun install
     ```
 
 3.

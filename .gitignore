@@ -9,10 +9,5 @@ node_modules/
 *.env
 !.env.example
 
-# SQLite database files
-*.db
-*.sqlite
-*.sqlite3
-
 # Environment
 .direnv/
